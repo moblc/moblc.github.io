@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>个人博客</title><meta name="author" content="admin"><meta name="copyright" content="admin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="https://blog.p0.ee/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.p0.ee/img/Logo.png">
+<meta property="article:author" content="admin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.p0.ee/img/Logo.png"><link rel="shortcut icon" href="/img/g.jpeg"><link rel="canonical" href="https://blog.p0.ee/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '个人博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/css/mycss.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/Logo.png" alt="Logo"><span class="site-name">个人博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">个人博客</h1></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/12/15/linux/%E5%88%A9%E7%94%A8cloudflare%E6%90%AD%E5%BB%BAtwikoo%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" title="利用cloudflare搭建twikoo评论系统">利用cloudflare搭建twikoo评论系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-12-15T04:58:06.000Z" title="发表于 2024-12-15 04:58:06">2024-12-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">查看了各个评论系统 Gittalk、Gitment、Disqus、Livere、Valine、Waline、Twikoo等。综合了多种方案，最后选用了 Twikoo，一来是因为简洁美观，满足博主的审美，二来全栈使用 Cloudflare 的方案，不用再去申请其他的账号了。 部署Twikoo复制仓库首先 Fork 博主的仓库，输入你自己的仓库名称，点击 Create fork 按钮创建自己的仓库。 国内对github的访问向来是时断时续的，如果安装失败可以等一等，或者使用科学上网工具 创建D1数据库 登录 Cloudflare，点击左侧栏 存储和数据库 - D1 SQL数据库，点击 创建 按钮，填入 twikoo 作为数据库名后，点击 创建 按钮。 创建成功后回到列表页面，可以找到对应红框中的 ID 复制出来。 然后点击 twikoo 数据库，选择 控制台 页签，将仓库根目录下的 schema.sql 文件中的内容全部复制到输入框中，点击 执行 按钮。 很快数据库表就创建完了，最后修改仓库根目录下的 wrangler.toml 文件中的 database_id...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/11/10/%E5%AE%89%E5%8D%93/%E5%88%A9%E7%94%A8github-Action%E7%BC%96%E8%AF%91%E5%AE%89%E5%8D%93%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" title="利用github Action编译安卓内核驱动">利用github Action编译安卓内核驱动</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-11-10T04:58:06.000Z" title="发表于 2024-11-10 04:58:06">2024-11-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AE%89%E5%8D%93/">安卓</a></span></div><div class="content">背景由于需要利用安卓内核驱动进行游戏数据读取，但编译安卓内核需要电脑内存32G以上，而本机只有8G，所以选择利用GitHub Actions进行云端编译。 内核类型说明安卓内核分为两种类型：  GKI内核：谷歌推荐的标准化内核 非GKI内核：传统的碎片化内核   通过查看”关于本机”可以看到内核版本，5.0以上版本为GKI内核，本文主要讲解GKI内核的编译方法。  编译准备 确认内核版本  例如：5.10.149 对应android12内核版本 注意：此处的安卓版本指内核版本，不是系统版本     确认内核分支  参考谷歌官方文档 本例使用：common-android12-5.10   查看构建方法   GitHub Actions配置创建workflow文件，配置自动化构建流程： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162# 工作流名称为 Android12-5.10name:...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/10/vue/%E8%A7%A3%E5%86%B3safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%BF%E7%94%A8window-open%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决safari浏览器使用window.open失效的问题">解决safari浏览器使用window.open失效的问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-10T04:58:06.000Z" title="发表于 2023-07-10 04:58:06">2023-07-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">问题描述在Safari浏览器中，由于安全机制的限制，window.open()在回调函数中可能会失效。这是Safari浏览器为了防止页面滥用弹窗（如广告）而实施的安全策略。 现象分析正常使用时： 1window.open(url, &#x27;_blank&#x27;); // 正常工作  回调函数中使用时： 123axios.get(&#x27;xxxxxx&#x27;).then((url) =&gt; &#123;        window.open(url, &#x27;_blank&#x27;); // 失效&#125;);  解决方案1. 预先声明窗口对象1234let newWindow = window.open(&#x27;&#x27;, &#x27;_blank&#x27;);axios.get(&#x27;xxxxxx&#x27;).then((url) =&gt; &#123;        newWindow.location = url;&#125;);  2....</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/07/05/linux/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/" title="使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点">使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-05T04:58:06.000Z" title="发表于 2023-07-05 04:58:06">2023-07-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">背景这几天调试服务器，偶然发现国内的主要服务器被服务商给屏蔽了几乎所有的 IPv4 海外流量，但又有业务依赖 Cloudflare Tunnel 来实现，于是尝试强制连接到 Cloudflare Tunnel 的 IPv6 边缘节点来解决这一问题。 1. 正常安装 Cloudflare Tunnel 服务这里只需要按照 Cloudflare 原本的教程进行安装就可以了。  如果你不幸在把 Cloudflare Tunnel 安装为服务时卡在了初始化，不必担心，按下 Ctrl+C 强制结束进程。  2. 修改 cloudflared.service使用你喜欢的文本编辑器打开...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/06/20/linux/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" title="宝塔7.7原版+开心脚本+优化脚本">宝塔7.7原版+开心脚本+优化脚本</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-20T04:58:06.000Z" title="发表于 2023-06-20 04:58:06">2023-06-20</time></span></div><div class="content">今天折腾，不小心把宝塔升级了，然后报错，还是7.7版本香！宝塔面板7.7原版第三方存档123纯原版1：curl -sSO https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/install/install_panel.sh &amp;&amp; bash install_panel.sh纯原版2：wget -O install.sh http://f.cccyun.cc/bt/install_6.0.sh &amp;&amp; bash install.sh升级(降级)到7.7命令： curl http://f.cccyun.cc/bt/update6.sh|bash 宝塔7.7原版一键开心脚本1curl -sSO https://raw.githubusercontent.com/ztkink/bthappy/main/one_key_happy.sh &amp;&amp; bash...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" title="Mac安装软件时提示已损坏的解决方法">Mac安装软件时提示已损坏的解决方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-10T04:58:06.000Z" title="发表于 2023-06-10 04:58:06">2023-06-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">1xattr -r -d com.apple.quarantine path（path换成软件安装路径，一般在/Application下）</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/05/01/linux/Aria2-Rclone-%E5%AE%9E%E7%8E%B0-OneDrive%E3%80%81Google-Drive-%E7%AD%89%E7%BD%91%E7%9B%98%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/Aria2-Rclone-%E5%AE%9E%E7%8E%B0-OneDrive%E3%80%81Google-Drive-%E7%AD%89%E7%BD%91%E7%9B%98%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/" title="Aria2 + Rclone 实现 OneDrive、Google Drive 等网盘离线下载">Aria2 + Rclone 实现 OneDrive、Google Drive 等网盘离线下载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-01T04:58:06.000Z" title="发表于 2023-05-01 04:58:06">2023-05-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">前言Aria2 有一个配置项 on-download-complete，即在下载完后执行一个脚本或命令。当下载完成后 Aria2 会给脚本传递分别为 GID 、文件数量、文件路径的 3 个变量。利用这个配置项和这些变量就可以实现诸如下载完成后调用 Rclone 进行上传的操作。整个过程简单来说就是，Aria2 下载文件到 VPS ，完成后告诉 Rclone 将文件上传到网盘。理论上只要是 Rclone 支持的网盘，都可以按照这个思路来实现伪离线下载。当然这篇教程并不是教你如何去写脚本，而是直接用博主已做好的一套方案，按照教程操作很容易就能实现。 准备工作首先你需要一个适合下载的 VPS 安装 Aria2这里使用 Aria2 一键安装管理脚本 增强版，执行下面的代码下载并运行脚本，出现脚本操作菜单输入 1 开始安装。 1wget -N git.io/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; ./aria2.sh  安装和配置 RcloneRCLONE 官方提供了一键安装脚本： 1curl...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/04/01/linux/Rclone-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/Rclone-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="Rclone 安装配置教程">Rclone 安装配置教程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-04-01T04:58:06.000Z" title="发表于 2023-04-01 04:58:06">2023-04-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">Rclone 安装配置教程前言Rclone 是一个的命令行工具，支持在不同对象存储、网盘间同步、上传、下载数据。并且通过一些设置可以实现离线下载、服务器备份等非常实用的功能。这里以 OneDrive 和 Google Drive 为例子，进行连接配置，其它网盘的操作类似。由于是交互式配置选项，只要能看懂基本没有任何难度。 安装 Rclone官方提供了一键安装脚本： 1curl https://rclone.org/install.sh | sudo bash  Rclone 连接 OneDrive获取 token在本地 Windows 电脑上下载 rclone，然后解压出来，解压后进入文件夹，在资源管理器地址栏输入 cmd，回车就会在当前路径打开命令提示符。输入以下命令： 1rclone authorize &quot;onedrive&quot;  接下来会弹出浏览器，要求你登录账号进行授权。授权完后命令提示符窗口会出现以下信息： 1234567If your browser doesn&#x27;t open automatically go to the...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/02/02/Cloudflare%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89Docker%E9%95%9C%E5%83%8F%E6%BA%90/" title="Cloudflare搭建私有Docker镜像源">Cloudflare搭建私有Docker镜像源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-02T04:58:06.000Z" title="发表于 2023-02-02 04:58:06">2023-02-02</time></span></div><div class="content">由于神秘原因，国内用户逐渐无法访问 Docker Hub 仓库。本文介绍如何利用 Cloudflare 搭建私有 Docker 镜像源，解决访问问题。 项目介绍项目地址：CF-Workers-docker.io 部署方式Workers 部署 复制 _worker.js...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2022/06/20/docker%E8%AE%B0%E5%BD%95/" title="Docker记录">Docker记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-06-20T04:58:06.000Z" title="发表于 2022-06-20 04:58:06">2022-06-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content">Docker 记录Docker 基础操作进入容器环境12docker psdocker exec -it &lt;container&gt; bash  注意事项:  进入容器后避免修改系统配置 对于正在运行的容器,建议先记录容器ID 修改配置可能导致容器更新,造成数据丢失  常用命令容器管理 启动新容器  1docker run -it --privileged=true -v /home/oracle/download:/usr/Downloads centos /bin/bash   查看容器  12docker ps -a  # 查看所有容器docker ps     # 查看运行中容器   提交容器  1docker commit &lt;CONTAINER ID&gt; docker.io/ubuntu   查看容器信息  12345# 查看root密码docker logs &lt;容器名orID&gt; 2&gt;&amp;1 | grep &#x27;^User: &#x27; | tail -n1# 查看容器日志docker logs -f...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/#content-inner">10</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">admin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一个前端程序员，爱折腾，爱技术分享</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/15/linux/%E5%88%A9%E7%94%A8cloudflare%E6%90%AD%E5%BB%BAtwikoo%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" title="利用cloudflare搭建twikoo评论系统">利用cloudflare搭建twikoo评论系统</a><time datetime="2024-12-15T04:58:06.000Z" title="发表于 2024-12-15 04:58:06">2024-12-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/10/%E5%AE%89%E5%8D%93/%E5%88%A9%E7%94%A8github-Action%E7%BC%96%E8%AF%91%E5%AE%89%E5%8D%93%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" title="利用github Action编译安卓内核驱动">利用github Action编译安卓内核驱动</a><time datetime="2024-11-10T04:58:06.000Z" title="发表于 2024-11-10 04:58:06">2024-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/10/vue/%E8%A7%A3%E5%86%B3safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%BF%E7%94%A8window-open%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决safari浏览器使用window.open失效的问题">解决safari浏览器使用window.open失效的问题</a><time datetime="2023-07-10T04:58:06.000Z" title="发表于 2023-07-10 04:58:06">2023-07-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/05/linux/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/" title="使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点">使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点</a><time datetime="2023-07-05T04:58:06.000Z" title="发表于 2023-07-05 04:58:06">2023-07-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/linux/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" title="宝塔7.7原版+开心脚本+优化脚本">宝塔7.7原版+开心脚本+优化脚本</a><time datetime="2023-06-20T04:58:06.000Z" title="发表于 2023-06-20 04:58:06">2023-06-20</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/JavaScript/"><span class="card-category-list-name">JavaScript</span><span class="card-category-list-count">35</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">19</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Node/"><span class="card-category-list-name">Node</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/windows/"><span class="card-category-list-name">windows</span><span class="card-category-list-count">11</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/"><span class="card-category-list-name">前端</span><span class="card-category-list-count">17</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AE%89%E5%8D%93/"><span class="card-category-list-name">安卓</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Linux/" style="font-size: 1.42em; color: #99a6b7">Linux</a> <a href="/tags/windows/" style="font-size: 1.1em; color: #999">windows</a> <a href="/tags/UE4/" style="font-size: 1.34em; color: #99a3b0">UE4</a> <a href="/tags/Python3%E5%AE%89%E8%A3%85/" style="font-size: 1.1em; color: #999">Python3安装</a> <a href="/tags/GKI/" style="font-size: 1.1em; color: #999">GKI</a> <a href="/tags/DD%E8%84%9A%E6%9C%AC/" style="font-size: 1.1em; color: #999">DD脚本</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.18em; color: #999ca1">教程</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D/" style="font-size: 1.1em; color: #999">数据恢复</a> <a href="/tags/BBR/" style="font-size: 1.1em; color: #999">BBR</a> <a href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/" style="font-size: 1.1em; color: #999">命令行工具</a> <a href="/tags/%E6%B8%B8%E6%88%8F%E5%A4%96%E6%8C%82/" style="font-size: 1.1em; color: #999">游戏外挂</a> <a href="/tags/cloudflare/" style="font-size: 1.1em; color: #999">cloudflare</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.26em; color: #999fa8">服务器</a> <a href="/tags/%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/" style="font-size: 1.34em; color: #99a3b0">内存分析</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%A1/" style="font-size: 1.1em; color: #999">自动打卡</a> <a href="/tags/CE/" style="font-size: 1.1em; color: #999">CE</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.5em; color: #99a9bf">前端</a> <a href="/tags/%E8%85%BE%E8%AE%AF%E4%BA%91/" style="font-size: 1.1em; color: #999">腾讯云</a> <a href="/tags/Mac/" style="font-size: 1.1em; color: #999">Mac</a> <a href="/tags/JavaScript/" style="font-size: 1.1em; color: #999">JavaScript</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" style="font-size: 1.1em; color: #999">网络安全</a> <a href="/tags/Android/" style="font-size: 1.1em; color: #999">Android</a> <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" style="font-size: 1.1em; color: #999">防火墙</a> <a href="/tags/%E6%B5%8B%E9%80%9F/" style="font-size: 1.1em; color: #999">测速</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%B7%A5%E5%85%B7/" style="font-size: 1.1em; color: #999">网络工具</a> <a href="/tags/FAS/" style="font-size: 1.1em; color: #999">FAS</a> <a href="/tags/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/" style="font-size: 1.1em; color: #999">远程桌面</a> <a href="/tags/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B/" style="font-size: 1.1em; color: #999">逆向工程</a> <a href="/tags/docker/" style="font-size: 1.1em; color: #999">docker</a> <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/" style="font-size: 1.1em; color: #999">服务器配置</a> <a href="/tags/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/" style="font-size: 1.1em; color: #999">青龙面板</a> <a href="/tags/MySQL/" style="font-size: 1.1em; color: #999">MySQL</a> <a href="/tags/%E9%82%AE%E7%AE%B1/" style="font-size: 1.1em; color: #999">邮箱</a> <a href="/tags/Aria2/" style="font-size: 1.1em; color: #999">Aria2</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7/" style="font-size: 1.1em; color: #999">浏览器兼容性</a> <a href="/tags/%E9%94%90%E9%80%9F/" style="font-size: 1.1em; color: #999">锐速</a> <a href="/tags/Shell/" style="font-size: 1.1em; color: #999">Shell</a> <a href="/tags/%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" style="font-size: 1.1em; color: #999">运维工具</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 1.18em; color: #999ca1">运维</a> <a href="/tags/Docker/" style="font-size: 1.1em; color: #999">Docker</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/07/">
+            <span class="card-archive-list-date">
+              七月 2023
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/06/">
+            <span class="card-archive-list-date">
+              六月 2023
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/05/">
+            <span class="card-archive-list-date">
+              五月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/04/">
+            <span class="card-archive-list-date">
+              四月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/02/">
+            <span class="card-archive-list-date">
+              二月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/06/">
+            <span class="card-archive-list-date">
+              六月 2022
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">93</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-27T02:52:54.687Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2026 By admin</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/live2d-widget/autoload.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="255,255,255" opacity="1" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script></div></body></html>

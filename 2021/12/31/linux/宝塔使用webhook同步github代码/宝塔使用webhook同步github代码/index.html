@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>宝塔使用webhook同步github代码 | 个人博客</title><meta name="author" content="admin"><meta name="copyright" content="admin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="宝塔使用webhook同步github代码 github设置access_token  设置权限 给git action把绑定token 服务器设置git 先去 服务器上设置github用户名、邮箱、密码  然后获取rsa密钥用于代码拉取 12345678git config --global user.name &quot;xxx&quot;git config --global user.em">
+<meta property="og:type" content="article">
+<meta property="og:title" content="宝塔使用webhook同步github代码">
+<meta property="og:url" content="https://blog.p0.ee/2021/12/31/linux/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="宝塔使用webhook同步github代码 github设置access_token  设置权限 给git action把绑定token 服务器设置git 先去 服务器上设置github用户名、邮箱、密码  然后获取rsa密钥用于代码拉取 12345678git config --global user.name &quot;xxx&quot;git config --global user.em">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://localhost:4000/2021/06/20/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/ithub%E4%BB%A3%E7%A0%81/12i78oa-2.png">
+<meta property="article:published_time" content="2021-12-31T18:10:00.000Z">
+<meta property="article:modified_time" content="2026-04-27T02:52:29.560Z">
+<meta property="article:author" content="admin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://localhost:4000/2021/06/20/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/ithub%E4%BB%A3%E7%A0%81/12i78oa-2.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "宝塔使用webhook同步github代码",
+  "url": "https://blog.p0.ee/2021/12/31/linux/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/",
+  "image": "http://localhost:4000/2021/06/20/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/ithub%E4%BB%A3%E7%A0%81/12i78oa-2.png",
+  "datePublished": "2021-12-31T18:10:00.000Z",
+  "dateModified": "2026-04-27T02:52:29.560Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "admin",
+      "url": "https://blog.p0.ee/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/g.jpeg"><link rel="canonical" href="https://blog.p0.ee/2021/12/31/linux/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '宝塔使用webhook同步github代码',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/mycss.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/Logo.png" alt="Logo"><span class="site-name">个人博客</span></a><a class="nav-page-title" href="/"><span class="site-name">宝塔使用webhook同步github代码</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">宝塔使用webhook同步github代码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-12-31T18:10:00.000Z" title="发表于 2021-12-31 18:10:00">2021-12-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"></div></div></div><article class="container post-content" id="article-container"><p>宝塔使用webhook同步github代码</p>
+<h2 id="github设置access-token"><a href="#github设置access-token" class="headerlink" title="github设置access_token"></a>github设置access_token</h2><p><img src="/12h3kqt-2.png"></p>
+<p><img src="/12i78oa-2.png" alt="image-20240418232834618"></p>
+<h3 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h3><p><img src="/12ibc5r-2.png" alt="image-20240418232853582"></p>
+<h2 id="给git-action把绑定token"><a href="#给git-action把绑定token" class="headerlink" title="给git action把绑定token"></a>给git action把绑定token</h2><p><img src="/12hnsji-2.png" alt="image-20240418232743376"></p>
+<h3 id="服务器设置git"><a href="#服务器设置git" class="headerlink" title="服务器设置git"></a>服务器设置git</h3><ul>
+<li><p>先去 服务器上设置github用户名、邮箱、密码</p>
+</li>
+<li><p>然后获取rsa密钥用于代码拉取</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;xxx&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;xxx@qq.com&quot;</span></span><br><span class="line">git config --global user.password <span class="string">&quot;xxx&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#生成公钥</span></span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line"><span class="comment">#获取公钥</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="宝塔软件商店搜索-webhook"><a href="#宝塔软件商店搜索-webhook" class="headerlink" title="宝塔软件商店搜索 webhook"></a>宝塔软件商店搜索 webhook</h2><p><img src="/12iy9j2-2.png" alt="img"></p>
+<ul>
+<li>点击设置添加hook，名称随便填，脚本复制以下的改下仓库地址和部署目录</li>
+<li><strong>注意点：</strong> 仓库的代码需要是编译后的代码。可以利用git action自动编译</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="comment">#输出当前时间</span></span><br><span class="line"><span class="built_in">date</span> --<span class="built_in">date</span>=<span class="string">&#x27;0 days ago&#x27;</span> <span class="string">&quot;+%Y-%m-%d %H:%M:%S&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Start&quot;</span></span><br><span class="line"><span class="comment">#git项目路径</span></span><br><span class="line">gitPath=<span class="string">&quot;/www/wwwroot/部署文件夹&quot;</span></span><br><span class="line"><span class="comment">#git 网址</span></span><br><span class="line">gitHttp=<span class="string">&quot;仓库地址&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Web站点路径：<span class="variable">$gitPath</span>&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#判断项目路径是否存在</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$gitPath</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">cd</span> <span class="variable">$gitPath</span></span><br><span class="line">        <span class="comment">#判断是否存在git目录</span></span><br><span class="line">        <span class="keyword">if</span> [ ! -d <span class="string">&quot;.git&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">&quot;在该目录下克隆 git&quot;</span></span><br><span class="line">                <span class="built_in">cd</span> ..</span><br><span class="line">                git <span class="built_in">clone</span> <span class="variable">$gitHttp</span> </span><br><span class="line">                <span class="comment"># mv gittemp/.git .</span></span><br><span class="line">                <span class="comment"># rm -rf gittemp </span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">&quot;End&quot;</span></span><br><span class="line">        <span class="keyword">else</span>  </span><br><span class="line">              <span class="built_in">echo</span> <span class="string">&quot;在该目录下拉取 git&quot;</span></span><br><span class="line">              git pull 2&gt;&amp;1</span><br><span class="line">              <span class="built_in">echo</span> <span class="string">&quot;End&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;该项目路径不存在&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;End&quot;</span></span><br><span class="line">        <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取添加后的 hook地址去github仓库里的设置点击webhook添加宝塔生成的hook地址，填完后点击add webhook即可，第一次需要点击下宝塔webhook的测试按钮</li>
+</ul>
+<p><img src="/12jbm3x-2.png" alt="img"></p>
+<p><img src="/t0yp1j-1.png" alt="image-20231114175513385"></p>
+<p><img src="/12iucss-2.png" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.p0.ee">admin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.p0.ee/2021/12/31/linux/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/">https://blog.p0.ee/2021/12/31/linux/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/%E5%AE%9D%E5%A1%94%E4%BD%BF%E7%94%A8webhook%E5%90%8C%E6%AD%A5github%E4%BB%A3%E7%A0%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.p0.ee" target="_blank"></a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="http://localhost:4000/2021/06/20/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/%E8%87%AA%E7%94%A8%E4%B8%B4%E6%97%B6%E9%82%AE%E7%AE%B1/ithub%E4%BB%A3%E7%A0%81/12i78oa-2.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2021/12/30/linux/linux%E4%B8%80%E9%94%AE%E6%B5%8B%E9%80%9F%E8%84%9A%E6%9C%AC/linux%E4%B8%80%E9%94%AE%E6%B5%8B%E9%80%9F%E8%84%9A%E6%9C%AC/" title="linux一键测速脚本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">linux一键测速脚本</div></div><div class="info-2"><div class="info-item-1">Linux服务器一键测速脚本使用以下命令可以快速测试服务器的网络性能: 1wget -qO- --no-check-certificate https://ghproxy.cc/https://raw.githubusercontent.com/oooldking/script/master/superbench.sh | bash  该脚本将测试:  服务器基础信息 网络带宽 磁盘I&#x2F;O速度 全球各地区到服务器的延迟  </div></div></div></a><a class="pagination-related" href="/2022/01/03/vue/vite%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E5%BB%BA/" title="vite项目初始化基建"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">vite项目初始化基建</div></div><div class="info-2"><div class="info-item-1">配置eslint什么是eslint? ESLint 是一个 JavaScript 和 TypeScript 的静态代码分析工具，它用于识别代码中的问题并提供一致性和规范性。简单来说，它的作用是：  检测错误和潜在的问题： ESLint 可以帮助你找到代码中的错误、潜在的 bug 以及不规范的写法，从而提高代码的质量和稳定性。 强制执行代码风格规范： 它可以根据预定义的规则或自定义的规则来强制执行一致的代码风格，以确保团队成员之间的代码风格一致，提高代码的可读性和可维护性。 提供自定义规则和插件支持： ESLint 允许你根据项目的特定需求定义自定义规则，并且支持各种插件，可以满足不同项目的特定需求。  总的来说，ESLint 可以帮助开发人员编写更加干净、可靠和符合规范的代码。  安装命令12# 方案1 pnpm i -D eslint  规则方案12345# 使用集成方案，内置好了所需规则pnpm i -D @antfu/eslint-config # eslint默认方案，通过命令初始化eslint规则npx eslint...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">admin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一个前端程序员，爱折腾，爱技术分享</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#github%E8%AE%BE%E7%BD%AEaccess-token"><span class="toc-number">1.</span> <span class="toc-text">github设置access_token</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%9D%83%E9%99%90"><span class="toc-number">1.1.</span> <span class="toc-text">设置权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99git-action%E6%8A%8A%E7%BB%91%E5%AE%9Atoken"><span class="toc-number">2.</span> <span class="toc-text">给git action把绑定token</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AEgit"><span class="toc-number">2.1.</span> <span class="toc-text">服务器设置git</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9D%E5%A1%94%E8%BD%AF%E4%BB%B6%E5%95%86%E5%BA%97%E6%90%9C%E7%B4%A2-webhook"><span class="toc-number">3.</span> <span class="toc-text">宝塔软件商店搜索 webhook</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/15/linux/%E5%88%A9%E7%94%A8cloudflare%E6%90%AD%E5%BB%BAtwikoo%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" title="利用cloudflare搭建twikoo评论系统">利用cloudflare搭建twikoo评论系统</a><time datetime="2024-12-15T04:58:06.000Z" title="发表于 2024-12-15 04:58:06">2024-12-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/10/%E5%AE%89%E5%8D%93/%E5%88%A9%E7%94%A8github-Action%E7%BC%96%E8%AF%91%E5%AE%89%E5%8D%93%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" title="利用github Action编译安卓内核驱动">利用github Action编译安卓内核驱动</a><time datetime="2024-11-10T04:58:06.000Z" title="发表于 2024-11-10 04:58:06">2024-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/10/vue/%E8%A7%A3%E5%86%B3safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%BF%E7%94%A8window-open%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决safari浏览器使用window.open失效的问题">解决safari浏览器使用window.open失效的问题</a><time datetime="2023-07-10T04:58:06.000Z" title="发表于 2023-07-10 04:58:06">2023-07-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/05/linux/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/" title="使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点">使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点</a><time datetime="2023-07-05T04:58:06.000Z" title="发表于 2023-07-05 04:58:06">2023-07-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/linux/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" title="宝塔7.7原版+开心脚本+优化脚本">宝塔7.7原版+开心脚本+优化脚本</a><time datetime="2023-06-20T04:58:06.000Z" title="发表于 2023-06-20 04:58:06">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2026 By admin</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.p0.ee',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.p0.ee',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/live2d-widget/autoload.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="255,255,255" opacity="1" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script></div></body></html>

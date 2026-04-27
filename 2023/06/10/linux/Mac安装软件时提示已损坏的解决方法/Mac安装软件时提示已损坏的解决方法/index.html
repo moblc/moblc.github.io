@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Mac安装软件时提示已损坏的解决方法 | 个人博客</title><meta name="author" content="admin"><meta name="copyright" content="admin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1xattr -r -d com.apple.quarantine path（path换成软件安装路径，一般在&#x2F;Application下）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac安装软件时提示已损坏的解决方法">
+<meta property="og:url" content="https://blog.p0.ee/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="1xattr -r -d com.apple.quarantine path（path换成软件安装路径，一般在&#x2F;Application下）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.p0.ee/img/Logo.png">
+<meta property="article:published_time" content="2023-06-10T04:58:06.000Z">
+<meta property="article:modified_time" content="2026-04-27T02:52:29.549Z">
+<meta property="article:author" content="admin">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.p0.ee/img/Logo.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mac安装软件时提示已损坏的解决方法",
+  "url": "https://blog.p0.ee/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/",
+  "image": "https://blog.p0.ee/img/Logo.png",
+  "datePublished": "2023-06-10T04:58:06.000Z",
+  "dateModified": "2026-04-27T02:52:29.549Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "admin",
+      "url": "https://blog.p0.ee/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/g.jpeg"><link rel="canonical" href="https://blog.p0.ee/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mac安装软件时提示已损坏的解决方法',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/mycss.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/Logo.png" alt="Logo"><span class="site-name">个人博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Mac安装软件时提示已损坏的解决方法</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://p0.ee/"><i class="fa-fw fas fa-id-card"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/flink/"><i class="fa-fw fa-solid fa-user-tie"></i><span> 本站友链</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Mac安装软件时提示已损坏的解决方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2023-06-10T04:58:06.000Z" title="发表于 2023-06-10 04:58:06">2023-06-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"></div></div></div><article class="container post-content" id="article-container"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xattr -r -d com.apple.quarantine path（path换成软件安装路径，一般在/Application下）</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.p0.ee">admin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.p0.ee/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">https://blog.p0.ee/2023/06/10/linux/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/Mac%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%97%B6%E6%8F%90%E7%A4%BA%E5%B7%B2%E6%8D%9F%E5%9D%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.p0.ee" target="_blank"></a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Mac/">Mac</a></div><div class="post-share"><div class="social-share" data-image="/img/Logo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2023/05/01/linux/Aria2-Rclone-%E5%AE%9E%E7%8E%B0-OneDrive%E3%80%81Google-Drive-%E7%AD%89%E7%BD%91%E7%9B%98%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/Aria2-Rclone-%E5%AE%9E%E7%8E%B0-OneDrive%E3%80%81Google-Drive-%E7%AD%89%E7%BD%91%E7%9B%98%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/" title="Aria2 + Rclone 实现 OneDrive、Google Drive 等网盘离线下载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Aria2 + Rclone 实现 OneDrive、Google Drive 等网盘离线下载</div></div><div class="info-2"><div class="info-item-1">前言Aria2 有一个配置项 on-download-complete，即在下载完后执行一个脚本或命令。当下载完成后 Aria2 会给脚本传递分别为 GID 、文件数量、文件路径的 3 个变量。利用这个配置项和这些变量就可以实现诸如下载完成后调用 Rclone 进行上传的操作。整个过程简单来说就是，Aria2 下载文件到 VPS ，完成后告诉 Rclone 将文件上传到网盘。理论上只要是 Rclone 支持的网盘，都可以按照这个思路来实现伪离线下载。当然这篇教程并不是教你如何去写脚本，而是直接用博主已做好的一套方案，按照教程操作很容易就能实现。 准备工作首先你需要一个适合下载的 VPS 安装 Aria2这里使用 Aria2 一键安装管理脚本 增强版，执行下面的代码下载并运行脚本，出现脚本操作菜单输入 1 开始安装。 1wget -N git.io/aria2.sh &amp;&amp; chmod +x aria2.sh &amp;&amp; ./aria2.sh  安装和配置 RcloneRCLONE 官方提供了一键安装脚本： 1curl...</div></div></div></a><a class="pagination-related" href="/2023/06/20/linux/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" title="宝塔7.7原版+开心脚本+优化脚本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">宝塔7.7原版+开心脚本+优化脚本</div></div><div class="info-2"><div class="info-item-1">今天折腾，不小心把宝塔升级了，然后报错，还是7.7版本香！宝塔面板7.7原版第三方存档123纯原版1：curl -sSO https://raw.githubusercontent.com/zhucaidan/btpanel-v7.7.0/main/install/install_panel.sh &amp;&amp; bash install_panel.sh纯原版2：wget -O install.sh http://f.cccyun.cc/bt/install_6.0.sh &amp;&amp; bash install.sh升级(降级)到7.7命令： curl http://f.cccyun.cc/bt/update6.sh|bash 宝塔7.7原版一键开心脚本1curl -sSO https://raw.githubusercontent.com/ztkink/bthappy/main/one_key_happy.sh &amp;&amp; bash...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Logo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">admin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">59</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一个前端程序员，爱折腾，爱技术分享</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/15/linux/%E5%88%A9%E7%94%A8cloudflare%E6%90%AD%E5%BB%BAtwikoo%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" title="利用cloudflare搭建twikoo评论系统">利用cloudflare搭建twikoo评论系统</a><time datetime="2024-12-15T04:58:06.000Z" title="发表于 2024-12-15 04:58:06">2024-12-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/10/%E5%AE%89%E5%8D%93/%E5%88%A9%E7%94%A8github-Action%E7%BC%96%E8%AF%91%E5%AE%89%E5%8D%93%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8/" title="利用github Action编译安卓内核驱动">利用github Action编译安卓内核驱动</a><time datetime="2024-11-10T04:58:06.000Z" title="发表于 2024-11-10 04:58:06">2024-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/10/vue/%E8%A7%A3%E5%86%B3safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%BF%E7%94%A8window-open%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决safari浏览器使用window.open失效的问题">解决safari浏览器使用window.open失效的问题</a><time datetime="2023-07-10T04:58:06.000Z" title="发表于 2023-07-10 04:58:06">2023-07-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/07/05/linux/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/%E4%BD%BF%E7%94%A8-IPv6-%E8%BF%9E%E6%8E%A5%E5%88%B0-Cloudflare-Tunnel-%E7%9A%84%E8%BE%B9%E7%BC%98%E8%8A%82%E7%82%B9/" title="使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点">使用 IPv6 连接到 Cloudflare Tunnel 的边缘节点</a><time datetime="2023-07-05T04:58:06.000Z" title="发表于 2023-07-05 04:58:06">2023-07-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/20/linux/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/%E5%AE%9D%E5%A1%947-7%E5%8E%9F%E7%89%88-%E5%BC%80%E5%BF%83%E8%84%9A%E6%9C%AC-%E4%BC%98%E5%8C%96%E8%84%9A%E6%9C%AC/" title="宝塔7.7原版+开心脚本+优化脚本">宝塔7.7原版+开心脚本+优化脚本</a><time datetime="2023-06-20T04:58:06.000Z" title="发表于 2023-06-20 04:58:06">2023-06-20</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2026 By admin</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.p0.ee',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.p0.ee',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script src="/live2d-widget/autoload.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="255,255,255" opacity="1" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script></div></body></html>
